@@ -187,12 +187,10 @@ def upload_image_page(request):
             uploaded_image_url = os.path.join(settings.MEDIA_URL, 'uploads', uploaded_file.name)
             print(uploaded_image_url)
             print(request)
-            # Redirect to a new page with the uploaded image URL
-            #return redirect('image_details', uploaded_image_url=uploaded_image_url)
         except Exception as e:
             # Handle any errors
             print(f"Error occurred: {e}")
-            # Redirect to an error page or display an error message to the user
-            #return render(request, 'error.html', {'error_message': str(e)})
-        
     return render(request, 'dashboard/order.html')
+
+def size_chart_page(request):
+    return render(request, 'dashboard/size_chart_page.html')

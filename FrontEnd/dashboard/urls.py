@@ -17,5 +17,6 @@ urlpatterns = [
          name='dashboard-customer-detail'),
     path('order/', views.order, name='dashboard-order'),
     path('upload_image/', views.upload_image_page, name='upload_image_page'),
+    path('size_chart/', views.size_chart_page, name='size_chart_page'),
 ]
 
