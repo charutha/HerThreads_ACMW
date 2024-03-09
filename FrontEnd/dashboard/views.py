@@ -5,6 +5,7 @@ from .forms import ProductForm, OrderForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .decorators import auth_users, allowed_users
+import os
 # Create your views here.
 
 
@@ -167,3 +168,31 @@ def logout_view(request):
 def dashboard_nextmonth(request):
     # Your view logic here
     return render(request, 'dashboard/nextmonth.html')  # Example: Rendering a template named 'nextmonth.html'
+
+from django.conf import settings
+def upload_image_page(request):
+    if request.method == 'POST':
+        # Handle file upload
+        uploaded_file = request.FILES['image']
+        # Construct the file path
+        file_path = os.path.join(settings.MEDIA_ROOT, 'uploads', uploaded_file.name)
+        try:
+            # Ensure the directory exists
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            # Save the uploaded file
+            with open(file_path, 'wb+') as destination:
+                for chunk in uploaded_file.chunks():
+                    destination.write(chunk)
+            # Construct the URL of the uploaded image
+            uploaded_image_url = os.path.join(settings.MEDIA_URL, 'uploads', uploaded_file.name)
+            print(uploaded_image_url)
+            print(request)
+            # Redirect to a new page with the uploaded image URL
+            #return redirect('image_details', uploaded_image_url=uploaded_image_url)
+        except Exception as e:
+            # Handle any errors
+            print(f"Error occurred: {e}")
+            # Redirect to an error page or display an error message to the user
+            #return render(request, 'error.html', {'error_message': str(e)})
+        
+    return render(request, 'dashboard/order.html')

@@ -16,4 +16,6 @@ urlpatterns = [
     path('customers/detial/<int:pk>/', views.customer_detail,
          name='dashboard-customer-detail'),
     path('order/', views.order, name='dashboard-order'),
+    path('upload_image/', views.upload_image_page, name='upload_image_page'),
 ]
+
